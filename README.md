@@ -122,6 +122,8 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     
     
     
+ Next will be our Books serializer. Books have reviews attached, so we'll need to include that serializer in to show off their data 
+```    
 class BookSerializer(serializers.HyperlinkedModelSerializer):
     reviews = ReviewSerializer(
         many = True,
@@ -130,3 +132,5 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book
         fields = ('id', 'title', 'author', 'summary', 'price', 'reviews', 'photo_url')
+```
+
