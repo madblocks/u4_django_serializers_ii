@@ -11,23 +11,18 @@ Fork and Clone this repo down, then lets load up our basic installation and set 
 First, lets get our Shell created
 
 ```
-
 pipenv shell
-
 ```
 
 Then, we can run and install Django and Psycopg2
 
 ```
 pipenv install django
-
 ```
 
 
 ```
-
 pipenv install psycopg2-binary
-
 ```
 
 
@@ -35,7 +30,23 @@ Now we can load up our SQL file to create our DB. Remember, you only need the "-
 
 
 ```
-
 psql -U postgres -f settings.sql
+```
+
+
+Our migrations should be created with the project, so lets just run a migration to get our tables created
 
 ```
+python3 manage.py migrate
+```
+
+Now we can see our tables in our PSQL shell, and can populate our database with the Django Admin screen, PSQL, or Postico, your pick! 
+I'll be using Postico as it is the quickest way to put some data in.
+
+
+If you try loading up localhost:8000 you'll get some errors, this is because we have not gotten our Serializer View Engine set up yet.
+
+
+When you load up serializers.py you should see your User model already created. Lets work on the Review and Book Serializers to add full relations to our data
+
+
