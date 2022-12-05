@@ -45,7 +45,10 @@ python3 manage.py migrate
 ```
 
 Now we can see our tables in our PSQL shell, and can populate our database with the Django Admin screen, PSQL, or Postico, your pick! 
-I'll be using Postico as it is the quickest way to put some data in.
+
+Of course, if we want to use that admin panel (and why would we not?) we'll have to create a Super User first
+
+``
 
 
 If you try loading up localhost:8000 you'll get some errors, this is because we have not gotten our Serializer View Engine set up yet.
@@ -134,3 +137,5 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'title', 'author', 'summary', 'price', 'reviews', 'photo_url')
 ```
 
+
+Now when we go to our /Books url, we will be able to see our Review information not as hyperlinks, but as the actual data. Which means if we make an axios call to /books/1, we'll be able to pull all of the attached reviews and render them on our screen!
