@@ -139,3 +139,5 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
 
 
 Now when we go to our /Books url, we will be able to see our Review information not as hyperlinks, but as the actual data. Which means if we make an axios call to /books/1, we'll be able to pull all of the attached reviews and render them on our screen!
+
+Make sure to set up and install CORS and all respective Middleware, you should now have a fully functioning Django back end with related data models!
