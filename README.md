@@ -25,6 +25,10 @@ pipenv install django
 pipenv install psycopg2-binary
 ```
 
+```
+pipenv instal djangorestframework
+```
+
 
 Now we can load up our SQL file to create our DB. Remember, you only need the "-U Postgres" if you've had to use it before, if you haven't, don't put it in!
 
@@ -49,4 +53,80 @@ If you try loading up localhost:8000 you'll get some errors, this is because we 
 
 When you load up serializers.py you should see your User model already created. Lets work on the Review and Book Serializers to add full relations to our data
 
+```
+from rest_framework import serializers
+from .models import User
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    reviews = serializers.HyperlinkedRelatedField(
+        view_name = 'review_detail',
+        many = True,
+        read_only = True
+    )
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'email', 'password', 'reviews')
+```
 
+We can see that Reviews will be attached to Users in a One-> Many relation, and that we can see url's for our reviews attached when they are created.
+
+
+Lets get our Book and Review Serializers created next.
+
+If we want to use these models, what do we need to do first?
+
+``
+from .models import User, Book, Review
+``
+
+        
+Now, lets create a review serializer        
+        
+```        
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+```
+
+
+Reviews are owned by both Users and Books, so lets attach them in. Then lets add a Meta class so that when we see the models we see what data is attached
+
+```
+    users = serializers.HyperlinkedRelatedField(
+        view_name = 'user_detail',
+        read_only = True
+    )
+    books = serializers.HyperlinkedRelatedField(
+        view_name = 'book_detail',
+        read_only = True
+    )
+    class Meta:
+        model = Review
+        fields = ('id', 'name', 'title', 'body', 'books', 'users')    
+ ```   
+    
+    
+ It should look like this at the end   
+    
+```
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    users = serializers.HyperlinkedRelatedField(
+        view_name = 'user_detail',
+        read_only = True
+    )
+    books = serializers.HyperlinkedRelatedField(
+        view_name = 'book_detail',
+        read_only = True
+    )
+    class Meta:
+        model = Review
+        fields = ('id', 'name', 'title', 'body', 'books', 'users')
+```        
+    
+    
+    
+class BookSerializer(serializers.HyperlinkedModelSerializer):
+    reviews = ReviewSerializer(
+        many = True,
+        read_only = True
+    )
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'author', 'summary', 'price', 'reviews', 'photo_url')
