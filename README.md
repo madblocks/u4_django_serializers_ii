@@ -82,7 +82,7 @@ from .models import User, Book, Review
 ``
 
         
-Now, lets create a review serializer        
+Now, lets create a review serializer. We are using a different type of serializer, working with the individual Models for this        
         
 ```        
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -125,7 +125,9 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     
     
     
- Next will be our Books serializer. Books have reviews attached, so we'll need to include that serializer in to show off their data 
+ Next will be our Books serializer. Books have reviews attached, so we'll need to include that serializer in to show off their data. By using the Review Serializer as our View Engine, we are able to see all of its associated data, not just the hyperlink!
+ 
+ 
 ```    
 class BookSerializer(serializers.HyperlinkedModelSerializer):
     reviews = ReviewSerializer(
