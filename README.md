@@ -29,6 +29,10 @@ pipenv install psycopg2-binary
 pipenv instal djangorestframework
 ```
 
+```
+python3 manage.py createsuperuser
+```
+
 
 Now we can load up our SQL file to create our DB. Remember, you only need the "-U Postgres" if you've had to use it before, if you haven't, don't put it in!
 
