@@ -26,7 +26,7 @@ pipenv install psycopg2-binary
 ```
 
 ```
-pipenv instal djangorestframework
+pipenv install djangorestframework
 ```
 
 ```
